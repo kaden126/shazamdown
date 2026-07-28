@@ -7,6 +7,12 @@ description = "Convert documents, presentations, spreadsheets, and more to markd
 keywords = ["markdown", "document", "convert", "gui"]
 repository = "https://github.com/kaden126/shazamdown"
 
+[package.metadata.wix]
+upgrade-guid = "30147569-3343-42D8-8387-F68F2C5F9233"
+path-guid = "139AC9F8-1BA0-4B78-994B-91E26C96FAFC"
+license = false
+eula = false
+
 [dependencies]
 anyhow = "1.0.104"
 office_oxide = "0.1.8"
@@ -16,8 +22,3 @@ slint = "1.17.1"
 
 [build-dependencies]
 slint-build = "1.17.1"
-
-# The profile that 'dist' will build with
-[profile.dist]
-inherits = "release"
-lto = "thin"
