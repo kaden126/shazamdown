@@ -1,0 +1,138 @@
+import {
+    HorizontalBox,
+    VerticalBox,
+    Button,
+    LineEdit,
+} from "std-widgets.slint";
+
+export enum AppError {
+    NoInputFile,
+    NoOutputFile,
+    FailedConversion,
+    None
+}
+
+export component MainWindow inherits Window {
+    callback convert(input: string, output: string) -> AppError;
+    callback open-input();
+    callback open-output();
+
+    in-out property <AppError> error;
+
+    in-out property <string> input <=> input-editor.text;
+    in-out property <string> output <=> output-editor.text;
+
+    VerticalBox {
+        alignment: LayoutAlignment.center;
+        cross-axis-alignment: CrossAxisAlignment.stretch;
+
+        Text {
+            font-size: 36px;
+            text: @tr("Sub-Title" => "Shazam!");
+            horizontal-alignment: center;
+        }
+
+        Text {
+            text: "Convert documents, presentations, spreadsheets, and more to markdown files.";
+            horizontal-alignment: center;
+        }
+
+        if (error != AppError.None): Text {
+            text: {
+                if (error == AppError.NoInputFile) {
+                    @tr("Error message" => "The input file does not exist, or is in an unsupported format.");
+                }
+                else if (error == AppError.NoOutputFile)  {
+                    @tr("Error message" => "The output file does not exist.")
+                }
+                else if (error == AppError.FailedConversion) {
+                    @tr("Error message" => "The conversion failed, or the permissions to the output folder aren't sufficient");
+                }
+                else {
+                    ""
+                }
+            }
+        }
+
+        HorizontalBox {
+            alignment: LayoutAlignment.stretch;
+            VerticalBox {
+                Text {
+                    text: @tr("Input prompt" => "Input file");
+                    font-size: 16px;
+                }
+
+                HorizontalBox {
+                    Text {
+                        horizontal-alignment: TextHorizontalAlignment.start;
+                        text: @tr("File locaton editor prompt" => "Enter location:");
+                        vertical-alignment: TextVerticalAlignment.center;
+                    }
+
+                    input-editor := LineEdit {
+                        placeholder-text: "File location";
+                    }
+                }
+
+                HorizontalBox {
+                    Text {
+                        horizontal-alignment: TextHorizontalAlignment.start;
+                        text: @tr("File locaton button prompt" => "Or select file:");
+                        vertical-alignment: TextVerticalAlignment.center;
+                    }
+
+                    Button {
+                        text: input-editor.text.is-empty ? @tr("Open file button" => "Select") : @tr("Open file button" => "Change");
+                        clicked => {
+                            open-input()
+                        }
+                    }
+                }
+            }
+
+            VerticalBox {
+                Text {
+                    text: @tr("Output prompt" => "Output file");
+                    font-size: 16px;
+                }
+
+                HorizontalBox {
+                    Text {
+                        horizontal-alignment: TextHorizontalAlignment.start;
+                        text: @tr("File locaton editor prompt" => "Enter location:");
+                        vertical-alignment: TextVerticalAlignment.center;
+                    }
+
+                    output-editor := LineEdit {
+                        placeholder-text: "File location";
+                    }
+                }
+
+                HorizontalBox {
+                    Text {
+                        horizontal-alignment: TextHorizontalAlignment.start;
+                        text: @tr("File locaton button prompt" => "Or select file:");
+                        vertical-alignment: TextVerticalAlignment.center;
+                    }
+
+                    Button {
+                        text: output-editor.text.is-empty ? @tr("Select file button" => "Select") : @tr("Select file button" => "Change");
+                        clicked => {
+                            open-output()
+                        }
+                    }
+                }
+            }
+        }
+
+        Button {
+            enabled: !input-editor.text.is-empty && !output-editor.text.is-empty;
+            text: @tr("Convert button" => "Convert");
+            clicked => {
+                error = convert(input-editor.text, output-editor.text);
+                input-editor.text = "";
+                output-editor.text = "";
+            }
+        }
+    }
+}
