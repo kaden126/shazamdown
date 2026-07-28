@@ -6,6 +6,7 @@ license = "GPLv3"
 description = "Convert documents, presentations, spreadsheets, and more to markdown files."
 keywords = ["markdown", "document", "convert", "gui"]
 repository = "https://github.com/kaden126/shazamdown"
+authors = ["Kaden Evens <kaden.evens@proton.me>"]
 
 [package.metadata.wix]
 upgrade-guid = "30147569-3343-42D8-8387-F68F2C5F9233"
