@@ -5,6 +5,7 @@ edition = "2024"
 license = "GPLv3"
 description = "Convert documents, presentations, spreadsheets, and more to markdown files."
 keywords = ["markdown", "document", "convert", "gui"]
+repository = "https://github.com/kaden126/shazamdown"
 
 [dependencies]
 anyhow = "1.0.104"
