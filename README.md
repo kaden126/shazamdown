@@ -12,4 +12,4 @@ The app features an intuitive ui, built with the [slint](https://github.com/slin
 I hope you enjoy it!
 
 ## Licensing
-`shazamdown` is licenced under the GPL-3.0. You are free to modify, redistribute, copy, and sell this software, just as long as it remains free for others to do the same. See the [LICENSE](LICENCE) file for full details.
+`shazamdown` is licenced under the GPL-3.0. You are free to modify, redistribute, copy, and sell this software, just as long as it remains free for others to do the same. See the [LICENSE](LICENSE) file for full details.
